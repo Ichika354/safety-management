@@ -9,7 +9,7 @@ $profile = mysqli_fetch_assoc($query);
 
 // require '../../log/session/index.php';
 
-$query = mysqli_query($conn, "SELECT * FROM report");
+// $query = mysqli_query($conn, "SELECT * FROM report");
 
 if (isset($_POST["submit"])) {
 
@@ -28,6 +28,25 @@ if (isset($_POST["submit"])) {
 }
 
 ?>
+<?php
+if (isset($_GET['selected_month'])) {
+    $selectedMonth = $_GET['selected_month'];
+
+    // Buat tanggal awal dan akhir berdasarkan bulan yang dipilih
+    $startDate = date('Y-' . $selectedMonth . '-01');
+    $endDate = date('Y-' . $selectedMonth . '-t', strtotime($startDate));
+
+    // Query untuk mengambil data berdasarkan rentang waktu
+    $filter = "SELECT * FROM report WHERE date_of_submission BETWEEN '$startDate' AND '$endDate'";
+    $result = mysqli_query($conn, $filter);
+
+    // ... (proses hasil query)
+}
+
+$filter = "SELECT * FROM report WHERE date_of_submission BETWEEN '$startDate' AND '$endDate'";
+$result = mysqli_query($conn, $filter);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,9 +129,28 @@ if (isset($_POST["submit"])) {
                     <div class="card mb-4">
                         <div class="card-header">
                             <!-- <a href="create/" class="btn btn-primary">Add +</a> -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                Add +
-                            </button>
+                            <div class="row d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary col-sm-6 h-25" data-toggle="modal" data-target="#myModal" style="width: 100px;">
+                                    Add +
+                                </button>
+                                <form method="get" class="col-sm-6 h-25 d-flex" style="width: 220px;">
+                                    <select name="selected_month" class="form-select text-center">
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">Agust</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-success ms-2">Filter</button>
+                                </form>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -134,7 +172,7 @@ if (isset($_POST["submit"])) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($safety = mysqli_fetch_assoc($query)) : ?>
+                                        <?php while ($safety = mysqli_fetch_assoc($result)) : ?>
                                             <tr>
                                                 <td><?= $safety['id_report']; ?></td>
                                                 <td><?= $safety['classification']; ?></td>
