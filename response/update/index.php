@@ -98,8 +98,8 @@ if (isset($_POST["submit"])) {
                     <div class="card mb-4">
                         <div class="card-body">
                             <form method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="id" value="<?= $query['id_report']; ?>" >
-                                <input type="hidden" name="oldImage" value="<?= $query['file_response']; ?>" >
+                                <input type="hidden" name="id" value="<?= $query['id_report']; ?>">
+                                <input type="hidden" name="oldImage" value="<?= $query['file_response']; ?>">
                                 <div class="row mb-3">
                                     <label for="date" class="col-sm-2 col-form-label" style="width: 15rem;">Date of Submission</label>
                                     <div class="col-sm-6">
