@@ -59,7 +59,7 @@ if (isset($_POST["submit"])) {
             <button class="btn btn-link btn-sm order-1 order-lg-0 ms-5" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         </div>
         <div class="ms-auto text-end pe-4 text-white">
-            <p class="mb-0 navbar-brand"><?= $profile["fullname"]; ?>(<?= $profile["role"]; ?>)</p>
+            <p class="mb-0"><?= $profile["fullname"]; ?> (<?= $profile["role"]; ?>)</p>
         </div>
     </nav>
     <div id="layoutSidenav">
