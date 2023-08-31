@@ -28,7 +28,7 @@ $query = mysqli_query($conn, "SELECT * FROM role");
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color:#005586;">
         <div style="width: 17em;">
-            <a class="navbar-brand" href="index.php">SAFETY EQUIPMENT STOCK</a>
+            <a class="navbar-brand" href="index.php">SAFETY MANAGEMENT</a>
         </div>
         <div class="">
             <button class="btn btn-link btn-sm order-1 order-lg-0 ms-5" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
@@ -91,12 +91,12 @@ $query = mysqli_query($conn, "SELECT * FROM role");
                                     </thead>
                                     <tbody>
                                         <?php $i = 1 ?>
-                                        <?php while($safety = mysqli_fetch_assoc($query)) : ?>
+                                        <?php while ($safety = mysqli_fetch_assoc($query)) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= $safety['role']; ?></td>
                                             </tr>
-                                        <?php $i++ ?>
+                                            <?php $i++ ?>
                                         <?php endwhile; ?>
                                     </tbody>
                                 </table>
