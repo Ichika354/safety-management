@@ -1,44 +1,43 @@
 <?php
+session_start();
+
+
 require '../../function/function.php';
 
 if (isset($_POST['submit'])) {
-    $nik = $_POST['nik'];
-    $password = $_POST['password'];
+    $nik = $_POST['nik']; // Pastikan $nik sudah diisi dengan nilai yang benar
+    $password = $_POST['password']; // Pastikan $password sudah diisi dengan nilai yang benar
 
     $cekdatabase = mysqli_query($conn, "SELECT * FROM management WHERE nik='$nik'");
     $hitung = mysqli_num_rows($cekdatabase);
 
-    $row = mysqli_fetch_assoc($cekdatabase);
-    //cek password
-    $verif = password_verify($password, $row["password"]);
-    if ($verif) {
-        if ($hitung > 0) {
-            // $_SESSION['log'] = 'True';
-            // $_SESSION['id'] = $row['id_management'];
-            // header('location: ../../views/dashboard/');
+    if ($hitung > 0) {
+        $row = mysqli_fetch_assoc($cekdatabase);
+        $verif = password_verify($password, $row["password"]);
+        if ($verif) {
+            // Jika verifikasi berhasil, set sesi dan arahkan ke halaman yang sesuai
+            $_SESSION['id'] = $row['id_management'];
+
             if ($row['id_role'] == 1) {
                 $_SESSION['admin'] = true;
-                $_SESSION['id'] = $row['id_management'];
                 header('location: ../../views/dashboard/');
             } elseif ($row['id_role'] == 2) {
                 $_SESSION['safety'] = true;
-                $_SESSION['id'] = $row['id_management'];
                 header('location: ../../views/dashboard/');
             } elseif ($row['id_role'] == 3) {
                 $_SESSION['responsible'] = true;
-                $_SESSION['id'] = $row['id_management'];
                 header('location: ../../response/');
             } elseif ($row['id_role'] == 4) {
                 $_SESSION['reporter'] = true;
-                $_SESSION['id'] = $row['id_management'];
                 header('location: ../../reporter/');
             }
+        } else {
+            header('location: ../login');
         }
     } else {
-        header('location: ../');
-    };
-};
-
+        header('location: ../login');
+    }
+}
 ?>
 
 <!DOCTYPE html>

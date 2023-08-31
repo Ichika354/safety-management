@@ -65,10 +65,10 @@
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/001.jpeg" alt="..." />
+                            <img class="img-fluid" src="assets/img/005.jpeg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">N219 Nurtanio</div>
+                            <div class="portfolio-caption-heading">FIRE HAZARD</div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                             <img class="img-fluid" src="assets/img/002.jpeg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">NC212 Family</div>
+                            <div class="portfolio-caption-heading">EXPLOSIVE HAZARD</div>
                         </div>
                     </div>
                 </div>
@@ -93,10 +93,10 @@
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/003.jpeg" alt="..." />
+                            <img class="img-fluid" src="assets/img/001.jpeg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">CN235 Family</div>
+                            <div class="portfolio-caption-heading">CAUTION SLIP HAZARD</div>
                         </div>
                     </div>
                 </div>
@@ -107,10 +107,10 @@
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/004.jpeg" alt="..." />
+                            <img class="img-fluid" src="assets/img/003.jpeg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">CN295</div>
+                            <div class="portfolio-caption-heading">DANGER ZONE</div>
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
             </div>
             <ul class="timeline">
                 <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/005.jpeg" alt="..." /></div>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/004.jpeg" alt="..." /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
                             <h4>Hazard</h4>
@@ -219,13 +219,9 @@
                         <div class="col-lg-8">
                             <div class="modal-body">
                                 <!-- Project details-->
-                                <h2 class="text-uppercase">N219 Nurtanio</h2>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/001.jpeg" alt="..." />
-                                <p>N219 Nurtanio akan menjadi moda transportasi yang paling cocok untuk membuka, meningkatkan pertumbuhan ekonomi masyarakat, dan memelihara pertahanan dan keamanan daerah-daerah terpencil.
-
-                                    N219 Nurtanio adalah pesawat multiguna generasi baru, yang dirancang untuk mengangkut 19 penumpang dengan luas kabin terbesar di kelasnya, mesinnya terbukti dan efisien, sistem avionik yang canggih, fixed tricycle landing gear, serta pintu kargo yang lebar untuk memudahkan mengubah konfigurasi pesawat. Dengan demikian, N219 Nurtanio dirancang untuk memberikan keuntungan kepada operator dari aspek teknis dan ekonomi.
-
-                                    Selain konfigurasi angkutan penumpang, N219 Nurtanio juga dapat dilengkapi dengan peralatan yang sesuai untuk memenuhi berbagai persyaratan misi seperti Transportasi Pasukan, konfigurasi Evakuasi Medis, Transportasi Kargo, Pengawasan dan Search and Rescue (SAR).</p>
+                                <h2 class="text-uppercase">FIRE HAZARD</h2>
+                                <img class="img-fluid d-block mx-auto" src="assets/img/005.jpeg" alt="..." />
+                                <p>Gambar ini berfungsi sebagai tanda peringatan yang jelas bahwa ada risiko potensial terjadinya kebakaran atau api di lingkungan tersebut.</p>
                                 <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                     <i class="fas fa-xmark me-1"></i>
                                     Close
@@ -247,7 +243,7 @@
                         <div class="col-lg-8">
                             <div class="modal-body">
                                 <!-- Project details-->
-                                <h2 class="text-uppercase">NC212 Family</h2>
+                                <h2 class="text-uppercase">EXPLOSIVE HAZARD</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/002.jpeg" alt="..." />
                                 <p>Program utama PTDI pada tahun 1976 adalah untuk memproduksi NC 212-200 di bawah lisensi dari CASA, Spanyol. Sebanyak 103 NC212-200 versi sipil dan militer telah diproduksi oleh PTDI.
 
@@ -274,7 +270,7 @@
                             <div class="modal-body">
                                 <!-- Project details-->
                                 <h2 class="text-uppercase">CN235 Family</h2>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/003.jpeg" alt="..." />
+                                <img class="img-fluid d-block mx-auto" src="assets/img/001.jpeg" alt="..." />
                                 <p>Pada 17 Oktober 1979, IPTN dan CASA (sekarang Airbus Defense & Space) mendirikan perusahaan baru, Aircraft Technology (Airtech) untuk mendesain CN235. Pesawat multiguna baru ini memiliki kemampuan Short Take-Off and Landing (STOL), ramp door untuk memudahkan keluar/masuk barang, dan karakteristik biaya perawatan rendah.
 
                                     Prototipe pertama "Elena" yang diproduksi oleh CASA melakukan penerbangan perdananya pada 11 November 1983 dan prototipe kedua "Tetuko" yang diproduksi oleh IPTN (sekarang PTDI) terbang untuk pertama kalinya pada Desember 1983. Produksi serial dimulai pada 1986 untuk versi 10 dan 100.
@@ -304,7 +300,7 @@
                             <div class="modal-body">
                                 <!-- Project details-->
                                 <h2 class="text-uppercase">CN295</h2>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/004.jpeg" alt="..." />
+                                <img class="img-fluid d-block mx-auto" src="assets/img/003.jpeg" alt="..." />
                                 <p>CN295 merupakan produk yang telah terbukti digunakan untuk operasi militer di wilayah terpencil dan pergerakan bantuan kemanusiaan. Lebih dari 95 pesawat telah mengudara, dengan 130.000 jam terbang di seluruh dunia.
 
                                     CN295 hadir dengan menawarkan keunggulan performa dan kemudahan dalam perawatan. Airbus Defence & Space dan PTDI menawarkan Dukungan Penuh Dalam Layanan dengan ketersediaan yang dijamin oleh kontrak dengan Angkatan Udara Indonesia.</p>
