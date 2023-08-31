@@ -237,7 +237,7 @@ if (isset($_GET['selected_month'])) {
                                                         <a href="update/" class="text-warning">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>|
-                                                        <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
+                                                        <a href="" onclick="return confirm('Yakin mau dihapus?')" class="text-danger">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                     </td>
