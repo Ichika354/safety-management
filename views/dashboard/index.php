@@ -43,8 +43,8 @@ if (isset($_GET['selected_month'])) {
     // ... (proses hasil query)
 }
 
-$filter = "SELECT * FROM report WHERE date_of_submission BETWEEN '$startDate' AND '$endDate'";
-$result = mysqli_query($conn, $filter);
+// $filter = "SELECT * FROM report WHERE date_of_submission BETWEEN '$startDate' AND '$endDate'";
+// $result = mysqli_query($conn, $filter);
 ?>
 
 <!DOCTYPE html>
@@ -133,22 +133,23 @@ $result = mysqli_query($conn, $filter);
                                 <button type="button" class="btn btn-primary col-sm-6 h-25" data-toggle="modal" data-target="#myModal" style="width: 100px;">
                                     Add +
                                 </button>
-                                <form method="get" class="col-sm-6 h-25 d-flex" style="width: 220px;">
-                                    <select name="selected_month" class="form-select text-center">
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">Agust</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">Desember</option>
-                                    </select>
+                                <form method="get" class="col-sm-6 d-flex flex-row-reverse">
                                     <button type="submit" class="btn btn-success ms-2">Filter</button>
+                                    <select name="selected_month" class=" form-select" style="width: 210px;">
+                                        <?php
+                                        $currentMonth = date("m");
+                                        $months = [
+                                            "01" => "January", "02" => "February", "03" => "March", "04" => "April",
+                                            "05" => "May", "06" => "June", "07" => "July", "08" => "August",
+                                            "09" => "September", "10" => "October", "11" => "November", "12" => "December"
+                                        ];
+
+                                        foreach ($months as $monthNumber => $monthName) {
+                                            $selected = ($currentMonth == $monthNumber) ? "selected" : "";
+                                            echo "<option value='$monthNumber' $selected>$monthName</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </form>
                             </div>
                         </div>
@@ -157,68 +158,75 @@ $result = mysqli_query($conn, $filter);
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="font-size: 15px;">
                                     <thead>
                                         <tr>
-                                            <th>Number</th>
-                                            <th>Classification</th>
-                                            <th>Date of Submission</th>
-                                            <th>Date of Hazard Identification</th>
-                                            <th>Location</th>
-                                            <th>Type Operation</th>
-                                            <th>Description</th>
-                                            <th>File Reporter</th>
-                                            <th>File Response</th>
-                                            <th>Respon Hazard</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th scope="col">Number</th>
+                                            <th scope="col">Classification</th>
+                                            <th scope="col">Date of Submission</th>
+                                            <th scope="col">Date of Hazard Identification</th>
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Type Operation</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">File Reporter</th>
+                                            <th scope="col">File Response</th>
+                                            <th scope="col">Respon Hazard</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($safety = mysqli_fetch_assoc($result)) : ?>
-                                            <tr>
-                                                <td><?= $safety['id_report']; ?></td>
-                                                <td><?= $safety['classification']; ?></td>
-                                                <td><?= $safety['date_of_submission']; ?></td>
-                                                <td><?= $safety['date_of_hazard']; ?></td>
-                                                <td><?= $safety['location']; ?></td>
-                                                <td><?= $safety['type_operation']; ?></td>
-                                                <td><?= $safety['description']; ?></td>
-                                                <?php if ($safety['file_reporter'] > 0) { ?>
-                                                    <td>
-                                                        <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>">
-                                                            <i class="fa-solid fa-image"></i>
+
+                                        <?php
+                                        if (isset($_GET['selected_month'])) {
+                                            $selectedMonth = $_GET['selected_month'];
+
+                                            // Query untuk mengambil data berdasarkan bulan yang dipilih
+                                            $query = "SELECT * FROM report WHERE MONTH(date_of_submission) = '$selectedMonth'";
+                                            $result = mysqli_query($conn, $query);
+
+                                            // Proses hasil query
+                                            while ($safety = mysqli_fetch_assoc($result)) {
+                                                // Tampilkan data dalam baris tabel
+                                        ?>
+                                                <tr>
+                                                    <td><?= $safety['id_report']; ?></td>
+                                                    <td><?= $safety['classification']; ?></td>
+                                                    <td><?= $safety['date_of_submission']; ?></td>
+                                                    <td><?= $safety['date_of_hazard']; ?></td>
+                                                    <td><?= $safety['location']; ?></td>
+                                                    <td><?= $safety['type_operation']; ?></td>
+                                                    <td><?= $safety['description']; ?></td>
+                                                    <?php if ($safety['file_reporter'] > 0) { ?>
+                                                        <td>
+                                                            <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>">
+                                                                <i class="fa-solid fa-image"></i>
+                                                            </a>
+                                                        </td>
+                                                    <?php } else { ?>
+                                                        <td>Tidak Ada</td>
+                                                    <?php } ?>
+                                                    <td>Tidak Ada</td>
+                                                    <?php // if ($safety['file_response'] > 0) { 
+                                                    ?>
+                                                    <?php if ($safety['respon_hazard'] > 0) { ?>
+                                                        <td><?= $safety['respon_hazard']; ?></td>
+                                                    <?php } else { ?>
+                                                        <td>Tidak Ada</td>
+                                                    <?php } ?>
+                                                    <td><?= $safety['status']; ?></td>
+
+                                                    <td class="text-center">
+                                                        <a href="update/" class="text-warning">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </a>|
+                                                        <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
+                                                            <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                     </td>
-                                                <?php } else { ?>
-                                                    <td>Tidak Ada</td>
-                                                <?php } ?>
-                                                <?php // if ($safety['file_response'] > 0) { 
-                                                ?>
-                                                <!-- <td>
-                                                        <a href="#" class="text-center open-popup-link-1" data-id="<? //= $safety['id_report']; 
-                                                                                                                    ?>">
-                                                            <i class="fa-solid fa-image"></i>
-                                                        </a>
-                                                    </td> -->
-                                                <?php //} else { 
-                                                ?>
-                                                <td>Tidak Ada</td>
-                                                <?php //} 
-                                                ?>
-                                                <?php if ($safety['respon_hazard'] > 0) { ?>
-                                                    <td><?= $safety['respon_hazard']; ?></td>
-                                                <?php } else { ?>
-                                                    <td>Tidak Ada</td>
-                                                <?php } ?>
-                                                <td><?= $safety['status']; ?></td>
-                                                <td class="text-center">
-                                                    <a href="update/" class="text-warning">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </a>|
-                                                    <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endwhile; ?>
+                                                </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+
                                     </tbody>
                                 </table>
                             </div>
