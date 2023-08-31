@@ -135,9 +135,9 @@ if (isset($_GET['selected_month'])) {
                                 </button>
                                 <form method="get" class="col-sm-6 d-flex flex-row-reverse">
                                     <button type="submit" class="btn btn-success ms-2">Filter</button>
-                                    <select name="selected_month" class=" form-select" style="width: 210px;">
+                                    <select name="selected_month" class="form-select" style="width: 210px;">
                                         <?php
-                                        $currentMonth = date("m");
+                                        $selectedMonth = isset($_GET['selected_month']) ? $_GET['selected_month'] : date('m');
                                         $months = [
                                             "01" => "January", "02" => "February", "03" => "March", "04" => "April",
                                             "05" => "May", "06" => "June", "07" => "July", "08" => "August",
@@ -145,8 +145,20 @@ if (isset($_GET['selected_month'])) {
                                         ];
 
                                         foreach ($months as $monthNumber => $monthName) {
-                                            $selected = ($currentMonth == $monthNumber) ? "selected" : "";
+                                            $selected = ($selectedMonth == $monthNumber) ? "selected" : "";
                                             echo "<option value='$monthNumber' $selected>$monthName</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    <select name="selected_year" class="form-select" style="width: 100px;">
+                                        <?php
+                                        $selectedYear = isset($_GET['selected_year']) ? $_GET['selected_year'] : date('Y');
+                                        $startYear = 2022;
+                                        $endYear = 2030;
+
+                                        for ($year = $startYear; $year <= $endYear; $year++) {
+                                            $selected = ($selectedYear == $year) ? "selected" : "";
+                                            echo "<option value='$year' $selected>$year</option>";
                                         }
                                         ?>
                                     </select>
@@ -175,12 +187,20 @@ if (isset($_GET['selected_month'])) {
                                     <tbody>
 
                                         <?php
-                                        if (isset($_GET['selected_month'])) {
+                                        if (isset($_GET['selected_month']) && isset($_GET['selected_year'])) {
                                             $selectedMonth = $_GET['selected_month'];
+                                            $selectedYear = $_GET['selected_year'];
 
-                                            // Query untuk mengambil data berdasarkan bulan yang dipilih
-                                            $query = "SELECT * FROM report WHERE MONTH(date_of_submission) = '$selectedMonth'";
+                                            // Query untuk mengambil data berdasarkan bulan dan tahun yang dipilih
+                                            if ($selectedMonth == '08') { // Agustus
+                                                $query = "SELECT * FROM report WHERE MONTH(date_of_submission) = 8 AND YEAR(date_of_submission) = '$selectedYear'";
+                                            } else {
+                                                $query = "SELECT * FROM report WHERE MONTH(date_of_submission) = '$selectedMonth' AND YEAR(date_of_submission) = '$selectedYear'";
+                                            }
+
                                             $result = mysqli_query($conn, $query);
+
+
 
                                             // Proses hasil query
                                             while ($safety = mysqli_fetch_assoc($result)) {
