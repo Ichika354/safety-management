@@ -168,7 +168,7 @@ if (isset($_POST['submit'])) {
         <form class="form" method="post">
             <p class="form-title">Sign in to your account</p>
             <div class="input-container">
-                <input placeholder="Enter NIK" type="text" name="nik">
+                <input placeholder="Enter NIK" type="text" name="nik" autocomplete="off">
             </div>
             <div class="input-container">
                 <input placeholder="Enter password" type="password" id="passwordInput" name="password">

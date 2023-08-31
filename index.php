@@ -245,9 +245,7 @@
                                 <!-- Project details-->
                                 <h2 class="text-uppercase">EXPLOSIVE HAZARD</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/002.jpeg" alt="..." />
-                                <p>Program utama PTDI pada tahun 1976 adalah untuk memproduksi NC 212-200 di bawah lisensi dari CASA, Spanyol. Sebanyak 103 NC212-200 versi sipil dan militer telah diproduksi oleh PTDI.
-
-                                    Antara 2004 - 2008, semua jigs dan fixture yang diperlukan untuk NC212-400 telah dipindahkan ke Bandung dari San Pablo, Spanyol. PTDI menjadi sumber produsen tunggal NC212 Family. Sejak 2014, PTDI tidak lagi memproduksi NC212-200 dan NC212-400, dan telah meningkatkan pesawat menjadi versi NC212i yang modern.</p>
+                                <p>Gambar diatas mengingatkan semua orang di area tersebut bahwa ada risiko ledakan yang signifikan dan mengharuskan untuk berhati-hati dan mematuhi langkah-langkah keselamatan.</p>
                                 <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                     <i class="fas fa-xmark me-1"></i>
                                     Close
@@ -269,15 +267,9 @@
                         <div class="col-lg-8">
                             <div class="modal-body">
                                 <!-- Project details-->
-                                <h2 class="text-uppercase">CN235 Family</h2>
+                                <h2 class="text-uppercase">CAUTION SLIP HAZARD</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/001.jpeg" alt="..." />
-                                <p>Pada 17 Oktober 1979, IPTN dan CASA (sekarang Airbus Defense & Space) mendirikan perusahaan baru, Aircraft Technology (Airtech) untuk mendesain CN235. Pesawat multiguna baru ini memiliki kemampuan Short Take-Off and Landing (STOL), ramp door untuk memudahkan keluar/masuk barang, dan karakteristik biaya perawatan rendah.
-
-                                    Prototipe pertama "Elena" yang diproduksi oleh CASA melakukan penerbangan perdananya pada 11 November 1983 dan prototipe kedua "Tetuko" yang diproduksi oleh IPTN (sekarang PTDI) terbang untuk pertama kalinya pada Desember 1983. Produksi serial dimulai pada 1986 untuk versi 10 dan 100.
-
-                                    Kemudian PTDI mengembangkan versi yang disempurnakan, seperti versi 110 dan 220; sedangkan Airbus Defense & Space dengan versi 200 dan 300-nya. Hingga saat ini, lebih dari 300 CN235 telah diproduksi dalam banyak versi dengan dua mesin General Electric CT7-9C terbaru (masing-masing memiliki 1.750 SHP).
-
-                                    Dalam kolaborasi untuk tujuan ekspor, PTDI memproduksi outer wings, horizontal stabilizers, vertical fins and doors untuk Airbus Defense & Space; sementara Airbus Defense & Space menghasilkan disassembled noses, disassembled cockpit, and center wings untuk PTDI.</p>
+                                <p>gambar diatas merupakan resiko bahaya kecelakaan kerja menggambarkan kejadian seseorang terpeleset. Sebagai divisi keselamatan bertugas memastikan keselamatan semua pekerja di lokasi tersebut.</p>
                                 <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                     <i class="fas fa-xmark me-1"></i>
                                     Close
@@ -299,11 +291,9 @@
                         <div class="col-lg-8">
                             <div class="modal-body">
                                 <!-- Project details-->
-                                <h2 class="text-uppercase">CN295</h2>
+                                <h2 class="text-uppercase">DANGER ZONE</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/003.jpeg" alt="..." />
-                                <p>CN295 merupakan produk yang telah terbukti digunakan untuk operasi militer di wilayah terpencil dan pergerakan bantuan kemanusiaan. Lebih dari 95 pesawat telah mengudara, dengan 130.000 jam terbang di seluruh dunia.
-
-                                    CN295 hadir dengan menawarkan keunggulan performa dan kemudahan dalam perawatan. Airbus Defence & Space dan PTDI menawarkan Dukungan Penuh Dalam Layanan dengan ketersediaan yang dijamin oleh kontrak dengan Angkatan Udara Indonesia.</p>
+                                <p>Gambar diatas merupakan risiko bahaya seseorang tersangkut yang dapat mencakup risiko fisik dan keselamatan individu. Risiko ini kemungkinan terjepit atau terluka oleh barang yang diangkut.</p>
                                 <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                     <i class="fas fa-xmark me-1"></i>
                                     Close
