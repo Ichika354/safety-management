@@ -19,7 +19,7 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Respobsible</title>
     <link href="../css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color:#005586;">
         <div style="width: 17em;">
-            <a class="navbar-brand" href="index.php">SAFETY EQUIPMENT STOCK</a>
+            <a class="navbar-brand" href="index.php">SAFETY MANAGEMENT</a>
         </div>
         <div class="">
             <button class="btn btn-link btn-sm order-1 order-lg-0 ms-5" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
