@@ -9,7 +9,6 @@ $profile = mysqli_fetch_assoc($query);
 $query = mysqli_query($conn, "SELECT * FROM report");
 
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,14 +83,13 @@ $query = mysqli_query($conn, "SELECT * FROM report");
             <main>
                 <div class="container-fluid">
                     <h1 class="mt-4">Departement Safety</h1>
-
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>NUMBER</th>
+                                            <th>Number</th>
                                             <th>Classification</th>
                                             <th>Date of Submission</th>
                                             <th>Date of Hazard Identification</th>
@@ -107,8 +105,12 @@ $query = mysqli_query($conn, "SELECT * FROM report");
                                     </thead>
                                     <tbody>
                                         <?php while ($safety = mysqli_fetch_assoc($query)) : ?>
+                                            <?php
+                                            $angka = $safety['id_report'];
+                                            $done = sprintf('%03d', $angka);
+                                            ?>
                                             <tr>
-                                                <td><?= $safety['id_report']; ?></td>
+                                                <td><?= 'HR' . $done . '/' . date('d') . '/' . date('m'); ?></td>
                                                 <td><?= $safety['classification']; ?></td>
                                                 <td><?= $safety['date_of_submission']; ?></td>
                                                 <td><?= $safety['date_of_hazard']; ?></td>
@@ -125,14 +127,49 @@ $query = mysqli_query($conn, "SELECT * FROM report");
                                                 <td><?= $safety['respon_hazard']; ?></td>
                                                 <td><?= $safety['status']; ?></td>
                                                 <td class="text-center">
-                                                    <a href="update/?id=<?= $safety['id_report']; ?>" class="text-warning">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </a>|
-                                                    <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
+                                                    <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
+                                                        <i class="fa-solid fa-pen-square"></i>
+                                                    </button>|
+                                                    <button class="btn btn-danger p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                         <i class="fa-solid fa-trash"></i>
-                                                    </a>
+                                                    </button>
                                                 </td>
                                             </tr>
+                                            <!-- Modal Edit -->
+                                            <div class="modal fade" id="editModal<?= $safety['id_report']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?= $safety['id_report']; ?>" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel<?= $safety['id_report']; ?>">Edit Data</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <!-- Form Edit -->
+                                                            <form action="update/index.php" method="post">
+                                                                <input type="hidden" name="id" value="<?= $safety['id_report']; ?>">
+                                                                <div class="mb-2">
+                                                                    <label for="">Post Mitigation</label><br>
+                                                                    <input type="text" class="form-control" id="mitigation" name="mitigation" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="status" style="width: 15rem;">Status</label>
+                                                                    <select class="form-select" id="status" name="status" required>
+                                                                        <option value="" selected disabled>Select Status</option>
+                                                                        <option value="close">Close</option>
+                                                                        <option value="accept">Accept</option>
+                                                                        <option value="reject">Reject</option>
+                                                                    </select>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal Edit End -->
+
                                         <?php endwhile; ?>
                                     </tbody>
                                 </table>
