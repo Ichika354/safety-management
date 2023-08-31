@@ -32,7 +32,7 @@ if (isset($_POST["submit"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Reporter</title>
     <link href="../css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/dashboar.css">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -81,7 +81,7 @@ if (isset($_POST["submit"])) {
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                 Add +
                             </button>
-                        </div>
+                        </div>  
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="font-size: 15px;">
@@ -216,7 +216,6 @@ if (isset($_POST["submit"])) {
 </div>
 
 <!-- Add Modal -->
-
 <div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">

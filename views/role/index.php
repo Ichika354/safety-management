@@ -17,7 +17,7 @@ $query = mysqli_query($conn, "SELECT * FROM role");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Role</title>
     <link href="../../css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -80,6 +80,12 @@ $query = mysqli_query($conn, "SELECT * FROM role");
                     <h1 class="mt-4">Role</h1>
 
                     <div class="card mb-4">
+                        <div class="card-header">
+                            <!-- <a href="create/" class="btn btn-primary">Add +</a> -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                Add +
+                            </button>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -160,4 +166,30 @@ $query = mysqli_query($conn, "SELECT * FROM role");
 <div class="popup" id="photoPopup">
     <span class="close-popup-btn" onclick="closePopup()">&times;</span>
     <img src="" alt="Foto" class="popup-image" id="photoPopupImage">
+</div>
+
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Role</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="text" name="role name" placeholder="Role Name" class="form-control" required> <br>
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                </div>
+            </form>
+
+            <!-- Modal footer -->
+
+
+        </div>
+    </div>
 </div>

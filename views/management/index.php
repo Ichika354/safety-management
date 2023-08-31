@@ -18,7 +18,7 @@ $query = mysqli_query($conn, "SELECT a.*, b.name, c.role FROM management a INNER
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Management</title>
     <link href="../../css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -79,49 +79,54 @@ $query = mysqli_query($conn, "SELECT a.*, b.name, c.role FROM management a INNER
             <main>
                 <div class="container-fluid">
                     <h1 class="mt-4">Management</h1>
-                    <div class="card-header">
-                        <a href="create/" class="btn btn-primary">Add User</a>
-                    </div>
+
                     <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIK</th>
-                                            <th>Fullname</th>
-                                            <th>Organization</th>
-                                            <th>Role</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1 ?>
-                                        <?php while ($safety = mysqli_fetch_assoc($query)) : ?>
+                        <div class="card-header">
+                            <!-- <a href="create/" class="btn btn-primary">Add +</a> -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                Add +
+                            </button>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
                                             <tr>
-                                                <td><?= $i; ?></td>
-                                                <td><?= $safety['nik']; ?></td>
-                                                <td><?= $safety['fullname']; ?></td>
-                                                <td><?= $safety['name']; ?></td>
-                                                <td><?= $safety['role']; ?></td>
-                                                <td class="text-center">
-                                                    <a href="update/" class="text-warning">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </a>|
-                                                    <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </a>
-                                                </td>
+                                                <th>No</th>
+                                                <th>NIK</th>
+                                                <th>Fullname</th>
+                                                <th>Organization</th>
+                                                <th>Role</th>
+                                                <th>Action</th>
                                             </tr>
-                                            <?php $i++ ?>
-                                        <?php endwhile; ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1 ?>
+                                            <?php while ($safety = mysqli_fetch_assoc($query)) : ?>
+                                                <tr>
+                                                    <td><?= $i; ?></td>
+                                                    <td><?= $safety['nik']; ?></td>
+                                                    <td><?= $safety['fullname']; ?></td>
+                                                    <td><?= $safety['name']; ?></td>
+                                                    <td><?= $safety['role']; ?></td>
+                                                    <td class="text-center">
+                                                        <a href="update/" class="text-warning">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </a>|
+                                                        <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <?php $i++ ?>
+                                            <?php endwhile; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </main>
         </div>
     </div>
@@ -178,4 +183,59 @@ $query = mysqli_query($conn, "SELECT a.*, b.name, c.role FROM management a INNER
 <div class="popup" id="photoPopup">
     <span class="close-popup-btn" onclick="closePopup()">&times;</span>
     <img src="" alt="Foto" class="popup-image" id="photoPopupImage">
+</div>
+
+<!-- Add Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Management</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="text" name="hazardDescription" placeholder="Full name" class="form-control" required> <br>
+                    <input type="text" name="hazardDescription" placeholder="NIK" class="form-control" required> <br>
+                    <input type="password" name="hazardDescription" placeholder="Password" class="form-control" required> <br>
+                    <select class="form-control" id="organization" name="organization" required>
+                        <option value="" selected disabled>Select Organization</option>
+                        <?php
+                        $ambildata = mysqli_query($conn, "SELECT * FROM organization");
+                        while ($fetcharray = mysqli_fetch_array($ambildata)) {
+                            $organization = $fetcharray['name'];
+                            $id = $fetcharray['id_organization'];
+                        ?>
+                            <option value="<?= $id; ?>"><?= $organization; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select> <br>
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="" selected disabled>Select Role</option>
+                        <?php
+                        $ambildata = mysqli_query($conn, "SELECT * FROM role");
+                        while ($fetcharray = mysqli_fetch_array($ambildata)) {
+                            $role = $fetcharray['role'];
+                            $id = $fetcharray['id_role'];
+                        ?>
+                            <option value="<?= $id; ?>"><?= $role; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select> <br>
+                    <input type="file" name="foto" class="form-control" accept="image/*" required> <br>
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                </div>
+            </form>
+
+            <!-- Modal footer -->
+
+
+        </div>
+    </div>
 </div>

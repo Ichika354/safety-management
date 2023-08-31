@@ -189,7 +189,7 @@ if (isset($_POST["submit"])) {
                 var id = this.getAttribute("data-id");
                 fetchPhoto(id);
             });
-        });
+        }); 
 
         // Fungsi untuk mengambil data foto dari database
         function fetchPhoto(id) {
