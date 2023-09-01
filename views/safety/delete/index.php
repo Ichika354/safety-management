@@ -14,7 +14,7 @@ function deleteReport($id)
         echo
         "<script>
             alert('Report can't delete');
-            window.location.href = '../safety/';
+            window.location.href = '../';
         </script>";
     }
 
@@ -27,12 +27,12 @@ if ( deleteReport($id) > 0 ) {
     echo
     "<script>
         alert('Report has been deleted');
-        window.location.href = '../safety/';
+        window.location.href = '../';
     </script>";
 } else {
      echo
     "<script>
         alert('Report has been error');
-        window.location.href = '../safety/';
+        window.location.href = '../';
     </script>";
 }

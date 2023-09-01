@@ -172,7 +172,7 @@ $query = mysqli_query($conn, "SELECT * FROM report");
                                                                 <input type="hidden" name="id" value="<?= $safety['id_report']; ?>">
                                                                 <div class="mb-2">
                                                                     <label for="">Post Mitigation</label><br>
-                                                                    <input type="text" class="form-control" id="mitigation" name="mitigation" required>
+                                                                    <input type="text" class="form-control" id="mitigation" name="mitigation" value="<?= $safety['post_mitigation']; ?>" required>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="status" style="width: 15rem;">Status</label>
