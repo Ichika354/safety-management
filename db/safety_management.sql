@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 31, 2023 at 10:17 AM
+-- Generation Time: Sep 01, 2023 at 07:31 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -45,7 +45,8 @@ INSERT INTO `management` (`id_management`, `id_organization`, `id_role`, `nik`, 
 (4, 3, 2, '714220031', 'Ghaida Fasya Yuthika Afifah', '$2y$10$05T/NG6zGYncjRO8/LUCXOIk/YPPwg53aRSzaCpR6x3XHeXo1WcCS'),
 (5, 2, 3, '714220011', 'Gaizka Wisnu Prawira', '$2y$10$YB91eVQRks737f/rTpH0i.a.sKmoASMkQjrFCr4Hf.dhFuv.pNarO'),
 (6, 4, 4, '714220008', 'M Rafli Alfarisi', '$2y$10$7lUdQMpsF7mdNAzPXyvMKe8emeT7C9r5mdyhviNz8qtlT9zKxVPYC'),
-(7, 1, 1, '714220028', 'Ahmad Rifki Ayala', '$2y$10$bumuYm/h/m0j6q47FsmEYuwlmxiGxYR8.ySDO9vIURUJbdLxv7KYq');
+(7, 1, 1, '714220028', 'Ahmad Rifki Ayala', '$2y$10$bumuYm/h/m0j6q47FsmEYuwlmxiGxYR8.ySDO9vIURUJbdLxv7KYq'),
+(9, 3, 1, '714230033', 'Rizqi Iqmal Fauzan', '$2y$10$mtMgURzZJxAATXIeAJj6qOYZ/yTKrKHJRJuKZFZ.rVLbYiMPxqaxm');
 
 -- --------------------------------------------------------
 
@@ -87,16 +88,17 @@ CREATE TABLE `report` (
   `file_reporter` varchar(100) NOT NULL,
   `file_response` varchar(100) NOT NULL,
   `respon_hazard` varchar(100) NOT NULL,
-  `status` varchar(30) NOT NULL
+  `status` varchar(30) NOT NULL,
+  `post_mitigation` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `report`
 --
 
-INSERT INTO `report` (`id_report`, `classification`, `date_of_submission`, `date_of_hazard`, `location`, `type_operation`, `description`, `file_reporter`, `file_response`, `respon_hazard`, `status`) VALUES
-(20230027, 'SMS', '2023-08-31', '2023-09-09', 'Dep IT', 'Aircraft Maintenace', 'Halo', '64f0125ec46a5.jpeg', '64f0381177f06.png', 'Done', 'accept'),
-(20230028, 'SMS', '2023-08-31', '2023-09-09', 'Dep IT', 'Aircraft Maintenace', 'Test 2', '64f01b23945e2.jpeg', '', '', 'accept');
+INSERT INTO `report` (`id_report`, `classification`, `date_of_submission`, `date_of_hazard`, `location`, `type_operation`, `description`, `file_reporter`, `file_response`, `respon_hazard`, `status`, `post_mitigation`) VALUES
+(1, 'SMS', '2023-09-01', '2023-10-07', 'Dep IT', 'Dismantling', 'Test', '64f15fe5b3bd7.png', '', 'Done', 'accept', 'Acc Segera Perbaiki'),
+(2, 'SMS', '2023-09-01', '2023-10-07', 'Dep IT', 'Aircraft Component/Interior Maintenance', 'Halo', '64f16430bf2f4.jpeg', '64f16485ab941.png', 'Done', 'accept', 'Acc Segera Perbaiki');
 
 -- --------------------------------------------------------
 
@@ -157,7 +159,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `management`
 --
 ALTER TABLE `management`
-  MODIFY `id_management` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_management` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `organization`
@@ -169,7 +171,7 @@ ALTER TABLE `organization`
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `id_report` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20230029;
+  MODIFY `id_report` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `role`
