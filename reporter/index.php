@@ -1,5 +1,16 @@
 <?php
 session_start();
+if (isset($_SESSION['admin'])) {
+} elseif (isset($_SESSION['safety'])) {
+} elseif (isset($_SESSION['responsible'])) {
+} elseif (isset($_SESSION['reporter'])) {
+} else {
+    header('location: ../log/login/');
+}
+
+
+
+
 $conn = mysqli_connect('localhost', 'root', '', 'safety_management');
 
 function add($data)
@@ -269,7 +280,7 @@ if (isset($_POST["submit"])) {
                                                         <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                             <i class="fa-solid fa-pen-square"></i>
                                                         </button>|
-                                                        <a href="delete/?id=<?= $safety['id_report']; ?>" onclick="return confirm('Are you sure want to delete this data?..')" class="btn btn-danger p-1" >
+                                                        <a href="delete/?id=<?= $safety['id_report']; ?>" onclick="return confirm('Are you sure want to delete this data?..')" class="btn btn-danger p-1">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                     </td>

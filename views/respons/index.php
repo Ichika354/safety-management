@@ -1,10 +1,10 @@
 <?php
 session_start();
 require '../../function/function.php';
+require '../../log/session/index.php';
 $id = $_SESSION['id'];
 $query = mysqli_query($conn, "SELECT a.*, b.role FROM management a INNER JOIN role b ON a.id_role = b.id_role WHERE a.id_management = '$id'");
 $profile = mysqli_fetch_assoc($query);
-// require 'cek.php';
 
 $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
 

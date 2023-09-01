@@ -9,7 +9,7 @@ elseif(isset($_SESSION['reporter'])){
 
 }
  else {
-        header('location: ../../log/login/');
+        header('location: ../log/login/');
     }
 
 
