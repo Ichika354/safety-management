@@ -90,7 +90,7 @@ if (isset($_POST["submit"])) {
                             </div>
                             Role
                         </a>
-                        <a class="nav-link" href="../../log/logout/">
+                        <a class="nav-link" href="../../log/logout/" onclick="return confirm('Are you sure?..')">
                             Logout
                         </a>
                     </div>
@@ -132,15 +132,75 @@ if (isset($_POST["submit"])) {
                                                     <td><?= $safety['name']; ?></td>
                                                     <td><?= $safety['role']; ?></td>
                                                     <td class="text-center">
-                                                        <a href="update/" class="text-warning">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </a>|
-                                                        <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
+                                                        <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_management']; ?>">
+                                                            <i class="fa-solid fa-pen-square"></i>
+                                                        </button>|
+                                                        <button class="btn btn-danger p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_management']; ?>">
                                                             <i class="fa-solid fa-trash"></i>
-                                                        </a>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                                 <?php $i++ ?>
+                                                <!-- Modal Edit -->
+                                                <div class="modal fade" id="editModal<?= $safety['id_management']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?= $safety['id_management']; ?>" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel<?= $safety['id_management']; ?>">Edit Data</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Form Edit -->
+                                                                <form action="update/index.php" method="post">
+                                                                    <input type="hidden" name="id" value="<?= $safety['id_management']; ?>">
+                                                                    <div class="mb-2">
+                                                                        <label for="">Fullname</label><br>
+                                                                        <input type="text" class="form-control" id="fullname" name="fullname" value="<?= $safety['fullname']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="">NIK</label><br>
+                                                                        <input type="text" class="form-control" id="nik" name="nik" value="<?= $safety['nik']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="organization" style="width: 15rem;">Organization</label>
+                                                                        <select class="form-control" id="organization" name="organization" required>
+                                                                            <option value="" selected disabled>Select Organization</option>
+                                                                            <?php
+                                                                            $ambildata = mysqli_query($conn, "SELECT * FROM organization");
+                                                                            while ($fetcharray = mysqli_fetch_array($ambildata)) {
+                                                                                $organization = $fetcharray['name'];
+                                                                                $id = $fetcharray['id_organization'];
+                                                                            ?>
+                                                                                <option value="<?= $id; ?>"><?= $organization; ?></option>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="role" style="width: 15rem;">Role</label>
+                                                                        <select class="form-control" id="role" name="role" required>
+                                                                            <option value="" selected disabled>Select Role</option>
+                                                                            <?php
+                                                                            $ambildata = mysqli_query($conn, "SELECT * FROM role");
+                                                                            while ($fetcharray = mysqli_fetch_array($ambildata)) {
+                                                                                $role = $fetcharray['role'];
+                                                                                $id = $fetcharray['id_role'];
+                                                                            ?>
+                                                                                <option value="<?= $id; ?>"><?= $role; ?></option>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             <?php endwhile; ?>
                                         </tbody>
                                     </table>
@@ -161,41 +221,7 @@ if (isset($_POST["submit"])) {
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="../../assets/demo/datatables-demo.js"></script>
-    <script>
-        // Fungsi untuk membuka popup dan menampilkan foto
-        function showPhotoPopup(photoSrc) {
-            var photoPopup = document.getElementById("photoPopup");
-            var photoPopupImage = document.getElementById("photoPopupImage");
-            photoPopupImage.src = photoSrc;
-            photoPopup.style.display = "block";
-        }
 
-        // Fungsi untuk menutup popup
-        function closePopup() {
-            document.getElementById("photoPopup").style.display = "none";
-        }
-
-        // Menambahkan event listener untuk tautan buka popup
-        var popupLinks = document.querySelectorAll(".open-popup-link");
-        popupLinks.forEach(function(link) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                var id = this.getAttribute("data-id");
-                fetchPhoto(id);
-            });
-        });
-
-        // Fungsi untuk mengambil data foto dari database
-        function fetchPhoto(id) {
-            fetch('../modal_img/index.php?id=' + id)
-                .then(response => response.json())
-                .then(data => {
-                    var foto = data.foto;
-                    showPhotoPopup('assets/img/' + foto);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
 </body>
 
 
@@ -221,9 +247,13 @@ if (isset($_POST["submit"])) {
             <!-- Modal body -->
             <form method="post" enctype="multipart/form-data">
                 <div class="modal-body">
+                    <label for="">Fullname</label><br>
                     <input type="text" name="name" placeholder="Full name" class="form-control" required> <br>
+                    <label for="">NIK</label><br>
                     <input type="text" name="nik" placeholder="NIK" class="form-control" required> <br>
+                    <label for="">Password</label><br>
                     <input type="password" name="password" placeholder="Password" class="form-control" required> <br>
+                    <label for="">Organization</label><br>
                     <select class="form-control" id="organization" name="organization" required>
                         <option value="" selected disabled>Select Organization</option>
                         <?php
@@ -237,6 +267,7 @@ if (isset($_POST["submit"])) {
                         }
                         ?>
                     </select> <br>
+                    <label for="">Role</label><br>
                     <select class="form-control" id="role" name="role" required>
                         <option value="" selected disabled>Select Role</option>
                         <?php

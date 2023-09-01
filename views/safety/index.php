@@ -210,27 +210,6 @@ $query = mysqli_query($conn, "SELECT * FROM report");
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="../../assets/demo/datatables-demo.js"></script>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const popupLinks = document.querySelectorAll(".popup-link");
-            const popup = document.querySelector(".popup");
-            const popupImage = document.querySelector(".popup-image");
-            const closePopupButton = document.querySelector(".close-popup");
-
-            popupLinks.forEach(link => {
-                link.addEventListener("click", function() {
-                    const id = this.getAttribute("data-id");
-                    const imagePath = "modal_img/index.php?id=" + id;
-                    popupImage.src = imagePath;
-                    popup.style.display = "block";
-                });
-            });
-
-            closePopupButton.addEventListener("click", function() {
-                popup.style.display = "none";
-            });
-        });
-    </script> -->
     <script>
         $(document).ready(function() {
             $('.open-popup-link').click(function() {

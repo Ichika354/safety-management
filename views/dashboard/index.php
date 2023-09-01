@@ -234,9 +234,9 @@ if (isset($_POST["submit"])) {
                                                         <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                             <i class="fa-solid fa-pen-square"></i>
                                                         </button>|
-                                                        <button class="btn btn-danger p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
+                                                        <a href="" class="btn btn-danger p-1" >
                                                             <i class="fa-solid fa-trash"></i>
-                                                        </button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 <div class="modal fade" id="editModal<?= $safety['id_report']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?= $safety['id_report']; ?>" aria-hidden="true">
