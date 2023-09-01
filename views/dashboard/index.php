@@ -234,7 +234,7 @@ if (isset($_POST["submit"])) {
                                                         <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                             <i class="fa-solid fa-pen-square"></i>
                                                         </button>|
-                                                        <a href="" class="btn btn-danger p-1" >
+                                                        <a href="delete/?id=<?= $safety['id_report']; ?>" onclick="return confirm('Are you sure want to delete this data?..')" class="btn btn-danger p-1" >
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -362,9 +362,13 @@ if (isset($_POST["submit"])) {
             <!-- Modal body -->
             <form method="post" enctype="multipart/form-data">
                 <div class="modal-body">
+                    <label for="">Date of Submission</label><br>
                     <input type="date" name="" placeholder="Date Of Submission" class="form-control" value="<?= date('Y-m-d')  ?>" required disabled> <br>
+                    <label for="dateHazard">Date Of Hazard Identification</label><br>
                     <input type="date" name="dateHazard" placeholder="Date Of Hazard Identification" class="form-control" required> <br>
+                    <label for="location">Location</label><br>
                     <input type="text" name="location" placeholder="Location" class="form-control" required> <br>
+                    <label for="type">Type of Operation</label><br>
                     <select class="form-control" id="type" name="type" required>
                         <option value="" selected disabled>Select Operation</option>
                         <option value="Aircraft Maintenace">Aircraft Maintenace</option>
@@ -375,7 +379,9 @@ if (isset($_POST["submit"])) {
                         <option value="Functional Test(Ground & Flight Test)">Functional Test(Ground & Flight Test)</option>
                         <option value="Aircart Modification">Aircart Modification</option>
                     </select><br>
+                    <label for="hazardDescription">Hazard Description</label><br>
                     <input type="text" name="hazardDescription" placeholder="Hazard Description" class="form-control" required> <br>
+                    <label for="foto">Upload Image</label><br>
                     <input type="file" name="foto" class="form-control" accept="image/*" required> <br>
                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                 </div>

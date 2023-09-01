@@ -135,9 +135,9 @@ if (isset($_POST["submit"])) {
                                                         <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_management']; ?>">
                                                             <i class="fa-solid fa-pen-square"></i>
                                                         </button>|
-                                                        <button class="btn btn-danger p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_management']; ?>">
+                                                        <a href="delete/?id=<?= $safety['id_management']; ?>" onclick="return confirm('Are you sure want to delete this data?..')" class="btn btn-danger p-1" >
                                                             <i class="fa-solid fa-trash"></i>
-                                                        </button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 <?php $i++ ?>

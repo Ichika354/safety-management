@@ -9,12 +9,12 @@ function deleteReport($id)
     global $conn;
 
     try {
-        mysqli_query($conn, "DELETE FROM report WHERE id_report = $id");
+        mysqli_query($conn, "DELETE FROM management WHERE id_management = $id");
     } catch (Exception $e) {
         echo
         "<script>
-            alert('Report can't delete');
-            window.location.href = '../dashboard/';
+            alert('Management can't delete');
+            window.location.href = '../';
         </script>";
     }
 
@@ -26,17 +26,13 @@ function deleteReport($id)
 if ( deleteReport($id) > 0 ) {
     echo
     "<script>
-        alert('Report has been deleted');
-        window.location.href = '../dashboard/';
+        alert('Management has been deleted');
+        window.location.href = '../';
     </script>";
 } else {
      echo
     "<script>
-        alert('Report has been error');
-        window.location.href = '../dashboard/';
+        alert('Management has been error');
+        window.location.href = '../';
     </script>";
 }
-
-
-
-?>

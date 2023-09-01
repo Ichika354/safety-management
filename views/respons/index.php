@@ -151,9 +151,9 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
                                                     <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                         <i class="fa-solid fa-pen-square"></i>
                                                     </button>|
-                                                    <button class="btn btn-danger p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
+                                                    <a href="delete/?id=<?= $safety['id_report']; ?>" onclick="return confirm('Are you sure want to delete this data?..')" class="btn btn-danger p-1">
                                                         <i class="fa-solid fa-trash"></i>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <!-- Modal Edit -->
