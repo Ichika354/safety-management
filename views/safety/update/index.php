@@ -7,10 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $id = $_POST['id'];
     $status = $_POST['status'];
+    $mitigation = $_POST['mitigation'];
     // Ambil data dari form dan lakukan update ke database
 
     $query = "UPDATE report SET 
-                status = '$status'
+                status = '$status',
+                post_mitigation = '$mitigation'
 
             WHERE id_report = $id
     ";

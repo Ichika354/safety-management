@@ -1,10 +1,74 @@
 <?php
 session_start();
-require '../function/function.php';
+$conn = mysqli_connect('localhost', 'root', '', 'safety_management');
+
+function add($data)
+{
+    global $conn;
+
+    $dateHazard = $data['dateHazard'];
+    $location = $data['location'];
+    $type = $data['type'];
+    $hazardDescription = $data['hazardDescription'];
+    $image = upload();
+
+    if (!$image) {
+        return false;
+    }
+
+    $query = "INSERT INTO report (classification, date_of_submission,date_of_hazard,location,type_operation,description,file_reporter,status) VALUES('SMS',CURDATE(),'$dateHazard','$location','$type','$hazardDescription','$image','close')";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function upload()
+{
+    $namaFile = $_FILES["foto"]["name"];
+    $error = $_FILES["foto"]["error"];
+    $tmpName = $_FILES["foto"]["tmp_name"];
+
+    //cek apakah ada foto yg di upload atau tidak
+    if ($error === 4) {
+        echo
+        "<script>
+                alert('Upload image first!!');
+            </script>";
+        return false;
+    }
+
+    //cek apakah yang di upload foto atau bukan
+    $ekstensiFotoValid = ["jpg", "jpeg", "png"];
+    $ekstensiFoto = explode('.', $namaFile);
+    $ekstensiFoto = strtolower(end($ekstensiFoto));
+
+    if (!in_array($ekstensiFoto, $ekstensiFotoValid)) {
+        echo
+        "<script>
+             alert('Upload your image');
+         </script>";
+        return false;
+    }
+    //lolos semua pengecekan
+    //generate nama foto baru
+
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiFoto;
+
+
+
+
+    move_uploaded_file($tmpName, '../assets/img/' . $namaFileBaru);
+
+    return $namaFileBaru;
+}
+
 $id = $_SESSION['id'];
 $query = mysqli_query($conn, "SELECT a.*, b.role FROM management a INNER JOIN role b ON a.id_role = b.id_role WHERE a.id_management = '$id'");
 $profile = mysqli_fetch_assoc($query);
-// require '../../log/session/index.php';
+// require '../log/session/index.php';
 
 $query = mysqli_query($conn, "SELECT * FROM report");
 
@@ -14,7 +78,7 @@ if (isset($_POST["submit"])) {
         echo
         "<script>
                 alert('Report has been Added');
-                window.location.href '../reporter';
+                window.location.href '../reporter/';
             </script>";
     } else {
         echo
@@ -65,7 +129,7 @@ if (isset($_POST["submit"])) {
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading"></div>
-                        <a class="nav-link" href="../reporter/">
+                        <a class="nav-link" href="../dashboard/">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-warning"></i></div>
                             Reporter
                         </a>
@@ -82,6 +146,7 @@ if (isset($_POST["submit"])) {
 
                     <div class="card mb-4">
                         <div class="card-header">
+                            <!-- <a href="create/" class="btn btn-primary">Add +</a> -->
                             <div class="row d-flex justify-content-between">
                                 <button type="button" class="btn btn-primary col-sm-6 h-25" data-toggle="modal" data-target="#myModal" style="width: 100px;">
                                     Add +
@@ -134,6 +199,7 @@ if (isset($_POST["submit"])) {
                                             <th scope="col">File Response</th>
                                             <th scope="col">Respon Hazard</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Post Mitigation</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -153,12 +219,16 @@ if (isset($_POST["submit"])) {
 
                                             $result = mysqli_query($conn, $query);
 
+
+
                                             // Proses hasil query
                                             while ($safety = mysqli_fetch_assoc($result)) {
                                                 // Tampilkan data dalam baris tabel
                                         ?>
+                                                <?php $angka = $safety['id_report'];
+                                                $done = sprintf('%03d', $angka); ?>
                                                 <tr>
-                                                    <td><?= $safety['id_report']; ?></td>
+                                                    <td><?= 'HR' . $done . '/' . date('d') . '/' . date('m'); ?></td>
                                                     <td><?= $safety['classification']; ?></td>
                                                     <td><?= $safety['date_of_submission']; ?></td>
                                                     <td><?= $safety['date_of_hazard']; ?></td>
@@ -167,32 +237,98 @@ if (isset($_POST["submit"])) {
                                                     <td><?= $safety['description']; ?></td>
                                                     <?php if ($safety['file_reporter'] > 0) { ?>
                                                         <td>
-                                                            <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>">
+                                                            <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>" data-file="<?= $safety['file_reporter']; ?>">
                                                                 <i class="fa-solid fa-image"></i>
                                                             </a>
                                                         </td>
                                                     <?php } else { ?>
                                                         <td>Tidak Ada</td>
                                                     <?php } ?>
-                                                    <td>Tidak Ada</td>
-                                                    <?php // if ($safety['file_response'] > 0) { 
-                                                    ?>
+                                                    <?php if ($safety['file_response'] > 0) { ?>
+                                                        <td>
+                                                            <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>" data-file="<?= $safety['file_response']; ?>">
+                                                                <i class="fa-solid fa-image"></i>
+                                                            </a>
+                                                        </td>
+                                                    <?php } else { ?>
+                                                        <td>Tidak Ada</td>
+                                                    <?php } ?>
+
                                                     <?php if ($safety['respon_hazard'] > 0) { ?>
                                                         <td><?= $safety['respon_hazard']; ?></td>
                                                     <?php } else { ?>
                                                         <td>Tidak Ada</td>
                                                     <?php } ?>
                                                     <td><?= $safety['status']; ?></td>
-
+                                                    <?php if ($safety['post_mitigation'] > 0) { ?>
+                                                        <td><?= $safety['post_mitigation']; ?></td>
+                                                    <?php } else { ?>
+                                                        <td>Tidak Ada</td>
+                                                    <?php } ?>
                                                     <td class="text-center">
-                                                        <a href="update/" class="text-warning">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </a>|
-                                                        <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
+                                                        <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
+                                                            <i class="fa-solid fa-pen-square"></i>
+                                                        </button>|
+                                                        <button class="btn btn-danger p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                             <i class="fa-solid fa-trash"></i>
-                                                        </a>
+                                                        </button>
                                                     </td>
                                                 </tr>
+                                                <div class="modal fade" id="editModal<?= $safety['id_report']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?= $safety['id_report']; ?>" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel<?= $safety['id_report']; ?>">Edit Data</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Form Edit -->
+                                                                <form action="update/index.php" method="post" enctype="multipart/form-data">
+                                                                    <input type="hidden" name="id" value="<?= $safety['id_report']; ?>">
+                                                                    <input type="hidden" name="oldImage" value="<?= $safety['file_reporter']; ?>">
+                                                                    <div class="mb-2">
+                                                                        <label for="">Date of Submission</label><br>
+                                                                        <input type="text" class="form-control" id="" name="" value="<?= date('Y-m-d'); ?>" disabled required>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="">Date of Hazard Identification</label><br>
+                                                                        <input type="date" class="form-control" id="" name="dateHazard" value="<?= $safety['date_of_hazard'] ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="">Location</label><br>
+                                                                        <input type="text" class="form-control" id="" name="location" value="<?= $safety['location'] ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="">Type of Operation</label>
+                                                                        <select class="form-select" id="type" name="type" required>
+                                                                            <option value="" selected disabled>Select Operation</option>
+                                                                            <option value="Aircraft Maintenace">Aircraft Maintenace</option>
+                                                                            <option value="Aircraft Component/Interior Maintenance">Aircraft Component/Interior Maintenance</option>
+                                                                            <option value="Dismantling">Dismantling</option>
+                                                                            <option value="Minor/Major Repair">Minor/Major Repair</option>
+                                                                            <option value="Ground Run">Ground Run</option>
+                                                                            <option value="Functional Test(Ground & Flight Test)">Functional Test(Ground & Flight Test)</option>
+                                                                            <option value="Aircart Modification">Aircart Modification</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="">Hazard Description</label><br>
+                                                                        <input type="text" class="form-control" id="" name="hazard" value="<?= $safety['description'] ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="">File Upload</label><br>
+                                                                        <input type="file" class="form-control" id="" name="foto">
+                                                                        <br>
+                                                                        <img src="../assets/img/<?= $safety['file_reporter']; ?>" alt="" width="100">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         <?php
                                             }
                                         }
@@ -217,54 +353,37 @@ if (isset($_POST["submit"])) {
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="../assets/demo/datatables-demo.js"></script>
     <script>
-        // reporter
-        // Fungsi untuk membuka popup dan menampilkan foto
-        function showPhotoPopup(photoSrc) {
-            var photoPopup = document.getElementById("photoPopup");
-            var photoPopupImage = document.getElementById("photoPopupImage");
-            photoPopupImage.src = photoSrc;
-            photoPopup.style.display = "block";
-        }
+        $(document).ready(function() {
+            $('.open-popup-link').click(function() {
+                var fileId = $(this).data('file');
+                var imageUrl = '../assets/img/' + fileId; // Ganti dengan path ke folder gambar Anda
 
-        // Fungsi untuk menutup popup
-        function closePopup() {
-            document.getElementById("photoPopup").style.display = "none";
-        }
-
-        // Menambahkan event listener untuk tautan buka popup
-        var popupLinks = document.querySelectorAll(".open-popup-link");
-        popupLinks.forEach(function(link) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                var id = this.getAttribute("data-id");
-                fetchPhoto(id);
+                $('#modalImage').attr('src', imageUrl);
+                $('#imageModal').modal('show');
             });
         });
-
-        // Fungsi untuk mengambil data foto dari database
-        function fetchPhoto(id) {
-            return fetch('modal_img/index.php?id=' + id)
-            console.log(response)
-                .then(response => response.json())
-                .then(data => {
-                    var foto = data.foto;
-                    showPhotoPopup('../../assets/img/' + foto);
-                })
-                .catch(error => console.error('Error:', error));
-        }
     </script>
+
 </body>
 
 
 
 </html>
 
-<div class="popup" id="photoPopup">
-    <span class="close-popup-btn" onclick="closePopup()">&times;</span>
-    <img src="" alt="Foto" class="popup-image" id="photoPopupImage">
+<!-- Modal untuk menampilkan gambar -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex justify-content-center">
+                <img id="modalImage" src="" alt="Gambar Laporan" width="775">
+            </div>
+        </div>
+    </div>
 </div>
 
+
 <!-- Add Modal -->
+
 <div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -9,7 +9,21 @@ $profile = mysqli_fetch_assoc($query);
 
 $query = mysqli_query($conn, "SELECT a.*, b.name, c.role FROM management a INNER JOIN organization b ON a.id_organization = b.id_organization INNER JOIN role c ON a.id_role = c.id_role");
 
+if (isset($_POST["submit"])) {
 
+    if (addManagement($_POST) > 0) {
+        echo
+        "<script>
+                alert('Management has been added');
+                window.location.href = '../management/';
+            </script>";
+    } else {
+        echo
+        "<script>
+                alert('Management has been error');
+            </script>";
+    }
+}
 
 
 ?>
@@ -134,6 +148,7 @@ $query = mysqli_query($conn, "SELECT a.*, b.name, c.role FROM management a INNER
                             </div>
                         </div>
                     </div>
+                </div>
             </main>
         </div>
     </div>
@@ -206,9 +221,9 @@ $query = mysqli_query($conn, "SELECT a.*, b.name, c.role FROM management a INNER
             <!-- Modal body -->
             <form method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="text" name="hazardDescription" placeholder="Full name" class="form-control" required> <br>
-                    <input type="text" name="hazardDescription" placeholder="NIK" class="form-control" required> <br>
-                    <input type="password" name="hazardDescription" placeholder="Password" class="form-control" required> <br>
+                    <input type="text" name="name" placeholder="Full name" class="form-control" required> <br>
+                    <input type="text" name="nik" placeholder="NIK" class="form-control" required> <br>
+                    <input type="password" name="password" placeholder="Password" class="form-control" required> <br>
                     <select class="form-control" id="organization" name="organization" required>
                         <option value="" selected disabled>Select Organization</option>
                         <?php
@@ -235,7 +250,6 @@ $query = mysqli_query($conn, "SELECT a.*, b.name, c.role FROM management a INNER
                         }
                         ?>
                     </select> <br>
-                    <input type="file" name="foto" class="form-control" accept="image/*" required> <br>
                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                 </div>
             </form>

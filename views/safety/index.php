@@ -100,6 +100,7 @@ $query = mysqli_query($conn, "SELECT * FROM report");
                                             <th>File Response</th>
                                             <th>Respon Hazard</th>
                                             <th>Status</th>
+                                            <th>Post Mitigation</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -117,15 +118,35 @@ $query = mysqli_query($conn, "SELECT * FROM report");
                                                 <td><?= $safety['location']; ?></td>
                                                 <td><?= $safety['type_operation']; ?></td>
                                                 <td><?= $safety['description']; ?></td>
-                                                <td>
-                                                    <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>">
-                                                        <i class="fa-solid fa-image"></i>
-                                                    </a>
-                                                </td>
-
-                                                <td><?= $safety['file_response']; ?></td>
-                                                <td><?= $safety['respon_hazard']; ?></td>
+                                                <?php if ($safety['file_reporter'] > 0) { ?>
+                                                    <td>
+                                                        <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>" data-file="<?= $safety['file_reporter']; ?>">
+                                                            <i class="fa-solid fa-image"></i>
+                                                        </a>
+                                                    </td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
+                                                <?php if ($safety['file_response'] > 0) { ?>
+                                                    <td>
+                                                        <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>" data-file="<?= $safety['file_response']; ?>">
+                                                            <i class="fa-solid fa-image"></i>
+                                                        </a>
+                                                    </td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
+                                                <?php if ($safety['respon_hazard'] > 0) { ?>
+                                                    <td><?= $safety['respon_hazard']; ?></td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
                                                 <td><?= $safety['status']; ?></td>
+                                                <?php if ($safety['post_mitigation'] > 0) { ?>
+                                                    <td><?= $safety['post_mitigation']; ?></td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
                                                 <td class="text-center">
                                                     <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                         <i class="fa-solid fa-pen-square"></i>
@@ -162,7 +183,7 @@ $query = mysqli_query($conn, "SELECT * FROM report");
                                                                         <option value="reject">Reject</option>
                                                                     </select>
                                                                 </div>
-                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                                <button type="submit" class="btn btn-primary">Edit</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -211,39 +232,15 @@ $query = mysqli_query($conn, "SELECT * FROM report");
         });
     </script> -->
     <script>
-        // Fungsi untuk membuka popup dan menampilkan foto
-        function showPhotoPopup(photoSrc) {
-            var photoPopup = document.getElementById("photoPopup");
-            var photoPopupImage = document.getElementById("photoPopupImage");
-            photoPopupImage.src = photoSrc;
-            photoPopup.style.display = "block";
-        }
+        $(document).ready(function() {
+            $('.open-popup-link').click(function() {
+                var fileId = $(this).data('file');
+                var imageUrl = '../../assets/img/' + fileId; // Ganti dengan path ke folder gambar Anda
 
-        // Fungsi untuk menutup popup
-        function closePopup() {
-            document.getElementById("photoPopup").style.display = "none";
-        }
-
-        // Menambahkan event listener untuk tautan buka popup
-        var popupLinks = document.querySelectorAll(".open-popup-link");
-        popupLinks.forEach(function(link) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                var id = this.getAttribute("data-id");
-                fetchPhoto(id);
+                $('#modalImage').attr('src', imageUrl);
+                $('#imageModal').modal('show');
             });
         });
-
-        // Fungsi untuk mengambil data foto dari database
-        function fetchPhoto(id) {
-            fetch('modal_img/index.php?id=' + id)
-                .then(response => response.json())
-                .then(data => {
-                    var foto = data.foto;
-                    showPhotoPopup('assets/img/' + foto);
-                })
-                .catch(error => console.error('Error:', error));
-        }
     </script>
 
 </body>
@@ -251,8 +248,13 @@ $query = mysqli_query($conn, "SELECT * FROM report");
 
 
 </html>
-
-<div class="popup" id="photoPopup">
-    <span class="close-popup-btn close-popup" onclick="closePopup()">&times;</span>
-    <img src="" alt="Foto" class="popup-image" id="photoPopupImage">
+<!-- Modal untuk menampilkan gambar -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex justify-content-center">
+                <img id="modalImage" src="" alt="Gambar Laporan" width="775">
+            </div>
+        </div>
+    </div>
 </div>

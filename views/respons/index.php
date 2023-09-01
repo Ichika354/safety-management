@@ -91,7 +91,7 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>NUMBER</th>
+                                            <th>Number</th>
                                             <th>Classification</th>
                                             <th>Date of Submission</th>
                                             <th>Date of Hazard Identification</th>
@@ -102,23 +102,51 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
                                             <th>File Response</th>
                                             <th>Respon Hazard</th>
                                             <th>Status</th>
+                                            <th>Post Mitigation</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($safety = mysqli_fetch_assoc($query)) : ?>
+                                            <?php $angka = $safety['id_report'];
+                                            $done = sprintf('%03d', $angka); ?>
                                             <tr>
-                                                <td><?= $safety['id_report']; ?></td>
+                                                <td><?= 'HR' . $done . '/' . date('d') . '/' . date('m'); ?></td>
                                                 <td><?= $safety['classification']; ?></td>
                                                 <td><?= $safety['date_of_submission']; ?></td>
                                                 <td><?= $safety['date_of_hazard']; ?></td>
                                                 <td><?= $safety['location']; ?></td>
                                                 <td><?= $safety['type_operation']; ?></td>
                                                 <td><?= $safety['description']; ?></td>
-                                                <td><?= $safety['file_reporter']; ?></td>
-                                                <td><?= $safety['file_response']; ?></td>
-                                                <td><?= $safety['respon_hazard']; ?></td>
+                                                <?php if ($safety['file_reporter'] > 0) { ?>
+                                                    <td>
+                                                        <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>" data-file="<?= $safety['file_reporter']; ?>">
+                                                            <i class="fa-solid fa-image"></i>
+                                                        </a>
+                                                    </td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
+                                                <?php if ($safety['file_response'] > 0) { ?>
+                                                    <td>
+                                                        <a href="#" class="text-center open-popup-link" data-id="<?= $safety['id_report']; ?>" data-file="<?= $safety['file_response']; ?>">
+                                                            <i class="fa-solid fa-image"></i>
+                                                        </a>
+                                                    </td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
+                                                <?php if ($safety['respon_hazard'] > 0) { ?>
+                                                    <td><?= $safety['respon_hazard']; ?></td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
                                                 <td><?= $safety['status']; ?></td>
+                                                <?php if ($safety['post_mitigation'] > 0) { ?>
+                                                    <td><?= $safety['post_mitigation']; ?></td>
+                                                <?php } else { ?>
+                                                    <td>Tidak Ada</td>
+                                                <?php } ?>
                                                 <td class="text-center">
                                                     <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                         <i class="fa-solid fa-pen-square"></i>
@@ -140,22 +168,37 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Form Edit -->
-                                                            <form action="update/index.php" method="post">
+                                                            <form action="update/index.php" method="post" enctype="multipart/form-data">
                                                                 <input type="hidden" name="id" value="<?= $safety['id_report']; ?>">
                                                                 <div class="mb-2">
-                                                                    <label for="">Post Mitigation</label><br>
-                                                                    <input type="text" class="form-control" id="mitigation" name="mitigation" required>
+                                                                    <label for="">Date of Submission</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= date('Y-m-d'); ?>" disabled required>
                                                                 </div>
-                                                                <div class="mb-3">
-                                                                    <label for="status" style="width: 15rem;">Status</label>
-                                                                    <select class="form-select" id="status" name="status" required>
-                                                                        <option value="" selected disabled>Select Status</option>
-                                                                        <option value="close">Close</option>
-                                                                        <option value="accept">Accept</option>
-                                                                        <option value="reject">Reject</option>
-                                                                    </select>
+                                                                <div class="mb-2">
+                                                                    <label for="">Date of Hazard Identification</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['date_of_hazard'] ?>" disabled required>
                                                                 </div>
-                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                                <div class="mb-2">
+                                                                    <label for="">Location</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['location'] ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Type of Operation</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['type_operation'] ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Hazard Description</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['description'] ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">File Upload</label><br>
+                                                                    <input type="file" class="form-control" id="" name="foto" required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Respon Hazard</label><br>
+                                                                    <input type="text" class="form-control" id="" name="respon" required>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Edit</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -183,39 +226,15 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="../../assets/demo/datatables-demo.js"></script>
     <script>
-        // Fungsi untuk membuka popup dan menampilkan foto
-        function showPhotoPopup(photoSrc) {
-            var photoPopup = document.getElementById("photoPopup");
-            var photoPopupImage = document.getElementById("photoPopupImage");
-            photoPopupImage.src = photoSrc;
-            photoPopup.style.display = "block";
-        }
+        $(document).ready(function() {
+            $('.open-popup-link').click(function() {
+                var fileId = $(this).data('file');
+                var imageUrl = '../../assets/img/' + fileId; // Ganti dengan path ke folder gambar Anda
 
-        // Fungsi untuk menutup popup
-        function closePopup() {
-            document.getElementById("photoPopup").style.display = "none";
-        }
-
-        // Menambahkan event listener untuk tautan buka popup
-        var popupLinks = document.querySelectorAll(".open-popup-link");
-        popupLinks.forEach(function(link) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                var id = this.getAttribute("data-id");
-                fetchPhoto(id);
+                $('#modalImage').attr('src', imageUrl);
+                $('#imageModal').modal('show');
             });
         });
-
-        // Fungsi untuk mengambil data foto dari database
-        function fetchPhoto(id) {
-            fetch('../modal_img/index.php?id=' + id)
-                .then(response => response.json())
-                .then(data => {
-                    var foto = data.foto;
-                    showPhotoPopup('assets/img/' + foto);
-                })
-                .catch(error => console.error('Error:', error));
-        }
     </script>
 </body>
 
@@ -223,7 +242,13 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
 
 </html>
 
-<div class="popup" id="photoPopup">
-    <span class="close-popup-btn" onclick="closePopup()">&times;</span>
-    <img src="" alt="Foto" class="popup-image" id="photoPopupImage">
+<!-- Modal untuk menampilkan gambar -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex justify-content-center">
+                <img id="modalImage" src="" alt="Gambar Laporan" width="775">
+            </div>
+        </div>
+    </div>
 </div>

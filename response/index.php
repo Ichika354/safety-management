@@ -80,6 +80,7 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
                                             <th>File Response</th>
                                             <th>Respon Hazard</th>
                                             <th>Status</th>
+                                            <th>Post Mitigation</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -97,15 +98,65 @@ $query = mysqli_query($conn, "SELECT * FROM report WHERE status = 'accept'");
                                                 <td><?= $safety['file_response']; ?></td>
                                                 <td><?= $safety['respon_hazard']; ?></td>
                                                 <td><?= $safety['status']; ?></td>
+                                                <td><?= $safety['post_mitigation']; ?></td>
                                                 <td class="text-center">
-                                                    <a href="update/?id=<?= $safety['id_report']; ?>" class="text-warning">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </a>|
-                                                    <a href="" onclick="confirm('Yakin mau dihapus?')" class="text-danger">
+                                                    <button class="btn btn-warning p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
+                                                        <i class="fa-solid fa-pen-square"></i>
+                                                    </button>|
+                                                    <button class="btn btn-danger p-1" data-toggle="modal" data-target="#editModal<?= $safety['id_report']; ?>">
                                                         <i class="fa-solid fa-trash"></i>
-                                                    </a>
+                                                    </button>
                                                 </td>
                                             </tr>
+                                            <!-- Modal Edit -->
+                                            <div class="modal fade" id="editModal<?= $safety['id_report']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?= $safety['id_report']; ?>" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel<?= $safety['id_report']; ?>">Edit Data</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <!-- Form Edit -->
+                                                            <form action="update/index.php" method="post" enctype="multipart/form-data">
+                                                                <input type="hidden" name="id" value="<?= $safety['id_report']; ?>">
+                                                                <div class="mb-2">
+                                                                    <label for="">Date of Submission</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= date('Y-m-d'); ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Date of Hazard Identification</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['date_of_hazard'] ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Location</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['location'] ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Type of Operation</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['type_operation'] ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Hazard Description</label><br>
+                                                                    <input type="text" class="form-control" id="" name="" value="<?= $safety['description'] ?>" disabled required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">File Upload</label><br>
+                                                                    <input type="file" class="form-control" id="" name="foto" required>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="">Respon Hazard</label><br>
+                                                                    <input type="text" class="form-control" id="" name="respon" required>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Edit</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal Edit End -->
                                         <?php endwhile; ?>
                                     </tbody>
                                 </table>
