@@ -35,7 +35,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">SAFETY AT THE WORKPLACE</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">K3LH</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-warning" href="log/login/">Login</a></li>
 
@@ -47,7 +47,7 @@
     <header class="masthead">
         <div class="container">
             <div class="masthead-subheading">DIRGANTARA INDONESIA</div>
-            <div class="masthead-heading text-uppercase">Indonesian Aerospaceu</div>
+            <div class="masthead-heading text-uppercase">Safety Management System</div>
         </div>
     </header>
     <!-- Services-->
@@ -222,6 +222,7 @@
                                 <h2 class="text-uppercase">FIRE HAZARD</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/005.jpeg" alt="..." />
                                 <p>Gambar ini berfungsi sebagai tanda peringatan yang jelas bahwa ada risiko potensial terjadinya kebakaran atau api di lingkungan tersebut.</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -242,6 +243,7 @@
                                 <h2 class="text-uppercase">EXPLOSIVE HAZARD</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/002.jpeg" alt="..." />
                                 <p>Gambar diatas mengingatkan semua orang di area tersebut bahwa ada risiko ledakan yang signifikan dan mengharuskan untuk berhati-hati dan mematuhi langkah-langkah keselamatan.</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -262,6 +264,7 @@
                                 <h2 class="text-uppercase">CAUTION SLIP HAZARD</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/001.jpeg" alt="..." />
                                 <p>gambar diatas merupakan resiko bahaya kecelakaan kerja menggambarkan kejadian seseorang terpeleset. Sebagai divisi keselamatan bertugas memastikan keselamatan semua pekerja di lokasi tersebut.</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -282,6 +285,7 @@
                                 <h2 class="text-uppercase">DANGER ZONE</h2>
                                 <img class="img-fluid d-block mx-auto" src="assets/img/003.jpeg" alt="..." />
                                 <p>Gambar diatas merupakan risiko bahaya seseorang tersangkut yang dapat mencakup risiko fisik dan keselamatan individu. Risiko ini kemungkinan terjepit atau terluka oleh barang yang diangkut.</p>
+                                
                             </div>
                         </div>
                     </div>
