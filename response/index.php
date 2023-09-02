@@ -1,5 +1,14 @@
 <?php
 session_start();
+
+if (isset($_SESSION['admin'])) {
+} elseif (isset($_SESSION['safety'])) {
+} elseif (isset($_SESSION['responsible'])) {
+} elseif (isset($_SESSION['reporter'])) {
+} else {
+    header('location: ../log/login/');
+}
+
 require '../function/function.php';
 $id = $_SESSION['id'];
 $query = mysqli_query($conn, "SELECT a.*, b.role FROM management a INNER JOIN role b ON a.id_role = b.id_role WHERE a.id_management = '$id'");
