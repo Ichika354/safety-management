@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
             header('location: ../login');
         }
     } else {
-        header('location: ../login');
+        $error = true;
     }
 }
 ?>
@@ -159,6 +159,12 @@ if (isset($_POST['submit'])) {
     .tombol {
         width: 5em;
     }
+
+    .text-danger{
+        color: red;
+        font-style: italic;
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -167,6 +173,9 @@ if (isset($_POST['submit'])) {
 
         <form class="form" method="post">
             <p class="form-title">Sign in to your account</p>
+            <?php if (isset($error)) : ?>
+                <p class="text-danger">NIK atau Password Salah</p>
+            <?php endif; ?>
             <div class="input-container">
                 <input placeholder="Enter NIK" type="text" name="nik" autocomplete="off">
             </div>
