@@ -36,7 +36,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#portfolio">K3LH</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Info</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-warning" href="log/login/">Login</a></li>
 
                 </ul>
@@ -46,7 +46,7 @@
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
-            <div class="masthead-subheading">DIRGANTARA INDONESIA</div>
+            <div class="masthead-subheading">Welcome</div>
             <div class="masthead-heading text-uppercase">Safety Management System</div>
         </div>
     </header>
